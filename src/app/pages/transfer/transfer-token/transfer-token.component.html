@@ -1,0 +1,113 @@
+<div class="box-transfer flex gap-6 pb-3">
+  <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Select coin</h2>
+  <div class="">
+    Coin
+    <div class="relative my-3" x-data="{ openAsset: false }">
+      <button
+        id="dropdownDefault"
+        x-on:click="openAsset = !openAsset"
+        x-on:click.outside="openAsset = false"
+        data-dropdown-toggle="dropdown"
+        class="justify-between border font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button"
+        [style]="'min-width:400px;'">
+        Choose Assets
+        <svg
+          class="w-4 h-4 ml-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <ul
+        x-cloak
+        x-show="openAsset"
+        x-transition
+        class="absolute top-10 left-0 bg-white p-4 rounded-md shadow overflow-hidden w-64">
+        <li>
+          <a
+            href="javascript:void(0)"
+            class="p-4 block text-sm text-gray-600 rounded flex items-center gap-2 hover:bg-gray-100">
+            BTC (Bitcoin)
+          </a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0)"
+            class="p-4 block text-sm text-gray-600 rounded flex items-center gap-2 hover:bg-gray-100">
+            USDT (Tether)
+          </a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0)"
+            class="p-4 block text-sm text-gray-600 rounded flex items-center gap-2 hover:bg-gray-100">
+            CELO (Celo)
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="box-transfer flex gap-6 pb-3">
+  <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Send to</h2>
+  <div class="gap-4">
+    <p class="text-lg text-gray-600 tracking-wider">Address</p>
+    <div class="">
+      <!-- Address -->
+      <div class="relative my-3">
+        <input
+          type="text"
+          id="input-group-1"
+          [style]="'min-width:400px;'"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Enter Address" />
+        <div class="flex absolute inset-y-0 right-0 items-center pr-3 cursor-pointer">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="box-transfer flex gap-6 pb-3">
+  <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Withdraw amount</h2>
+  <div class="gap-4">
+    <p class="text-lg text-gray-600 tracking-wider">Amount</p>
+    <div class="relative my-3">
+      <div class="flex">
+        <input
+          type="text"
+          id="input-group-1"
+          [style]="'min-width:400px;'"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Minimal 10" />
+        <div class="flex absolute inset-y-0 right-0 items-center pr-3">
+          <span class="cursor-pointer">MAX</span>
+          <span
+            class="inline-flex items-center px-3 ml-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-l-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+            USDT
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="box-transfer flex gap-6 pb-3">
+  <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Receive amount</h2>
+  <div class="gap-4">
+    <p class="text-lg text-gray-600 tracking-wider">0 USDT</p>
+    0.29 USDT network fee included
+  </div>
+  <div class="gap-4">
+    <button
+      type="button"
+      [ngClass]="btnColor.PinkToOrange">
+      Withdraw
+    </button>
+  </div>
+</div>

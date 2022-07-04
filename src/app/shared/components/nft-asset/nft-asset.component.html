@@ -4,16 +4,65 @@
 
   <div class="flex justify-between items-start">
     <div class="flex flex-col w-full">
-      <button
-        type="button"
-        [ngClass]=btnColor.CyanToBlue>
-        Sale
-      </button>
-      <button
-        type="button"
-        [ngClass]=btnColor.PinkToOrange>
-        Transfer
-      </button>
+      <button type="button" [ngClass]="btnColor.CyanToBlue">Sale</button>
+      <button type="button" [ngClass]="btnColor.PinkToOrange" (click)="toggleModal(itemNFT)">Transfer</button>
     </div>
   </div>
 </div>
+
+<div
+  *ngIf="showModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto my-6 mx-auto max-w-6xl">
+    <!--content-->
+    <div
+      class="border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none box-modal">
+      <!--header-->
+      <div class="p-5 border-b border-solid border-slate-200 rounded-t text-center">
+        <h3 class="text-3xl font-semibold">
+          Transfer <span class="text-cyan-600">{{ currentData.title }}</span>
+        </h3>
+        <img src="{{ itemNFT?.image }}" alt="icon" class="object-cover m-auto w-auto h-20 mt-4" />
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <p class="text-slate-500 text-lg leading-relaxed"></p>
+        <div class="gap-4">
+          <div class="">
+            <!-- Address -->
+            <div class="relative my-3">
+              <input
+                type="text"
+                id="input-group-1"
+                [style]="'min-width:400px;'"
+                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter Address" />
+              <div class="flex absolute inset-y-0 right-0 items-center pr-3 cursor-pointer">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                  <path
+                    d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end p-4 border-t border-solid border-slate-200 rounded-b">
+        <button
+          class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          (click)="showModal = false">
+          Cancel
+        </button>
+        <button
+          class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

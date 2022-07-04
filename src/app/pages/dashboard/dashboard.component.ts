@@ -33,70 +33,91 @@ export class DashboardComponent implements OnInit {
 
   transactionList = [
     {
-      time: 'Today',
+      timestamp: '2022-05-20T03:44:57.000Z',
       name: 'CryptoPunks',
       payment: 'Cash',
       type: 'NFT',
-      price: '100'
+      price: '1005',
     },
     {
-      time: 'Today',
+      timestamp: '2022-05-12T03:44:57.000Z',
       name: 'The Sandbox',
       payment: 'Cash',
       type: 'NFT',
-      price: '50'
+      price: '4450',
     },
     {
-      time: 'Today',
+      timestamp: '2022-05-25T03:44:57.000Z',
       name: 'goblinTown',
       payment: 'Cash',
       type: 'Token',
-      price: '10'
+      price: '12230',
     },
     {
-      time: 'Today',
+      timestamp: '2022-06-05T03:44:57.000Z',
       name: 'CryptoPunks',
       payment: 'Cash',
       type: 'Token',
-      price: '30'
+      price: '3230',
     },
     {
-      time: 'Today',
+      timestamp: '2022-06-16T03:44:57.000Z',
       name: 'CryptoPunks',
       payment: 'Cash',
       type: 'NFT',
-      price: '100'
+      price: '1020',
     },
     {
-      time: 'Today',
+      timestamp: '2022-05-21T03:44:57.000Z',
       name: 'The Sandbox',
       payment: 'Cash',
       type: 'NFT',
-      price: '50'
+      price: '50',
     },
     {
-      time: 'Today',
+      timestamp: '2022-06-11T03:44:57.000Z',
       name: 'goblinTown',
       payment: 'Cash',
       type: 'Token',
-      price: '10'
+      price: '10',
     },
     {
-      time: 'Today',
+      timestamp: '2022-06-19T03:44:57.000Z',
       name: 'CryptoPunks',
       payment: 'Cash',
       type: 'Token',
-      price: '30'
-    }
+      price: '30',
+    },
+    {
+      timestamp: '2022-07-02T03:44:57.000Z',
+      name: 'CryptoPunks',
+      payment: 'Cash',
+      type: 'Token',
+      price: '30',
+    },
+    {
+      timestamp: '2022-07-03T03:44:57.000Z',
+      name: 'CryptoPunks',
+      payment: 'Cash',
+      type: 'Token',
+      price: '30',
+    },
+    {
+      timestamp: '2022-07-04T03:44:57.000Z',
+      name: 'The Sandbox',
+      payment: 'Cash',
+      type: 'Token',
+      price: '30',
+    },
   ];
   templates: Array<TableTemplate> = [
-    { matColumnDef: 'time', headerCellDef: 'Time' },
+    { matColumnDef: 'timestamp', headerCellDef: 'Time' },
     { matColumnDef: 'name', headerCellDef: 'Name' },
     { matColumnDef: 'payment', headerCellDef: 'Payment' },
     { matColumnDef: 'type', headerCellDef: 'Type' },
     { matColumnDef: 'price', headerCellDef: 'Price' },
   ];
-  
+
   btnColor = BTN_COLOR_GRADIENT;
   constructor() {}
 

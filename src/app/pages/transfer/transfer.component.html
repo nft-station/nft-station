@@ -5,20 +5,19 @@
       <div class="d-flex mb-3 box-btn">
         <button
           type="button"
-          (click)="changeTab(typeAssets.Token)"
-          [ngClass]="typeCurrent === typeAssets.Token ? 'text-white bg-gradient-to-r from-cyan-500 to-blue-500' : ''"
-          class="hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-          Token
-        </button>
-        <button
-          type="button"
           (click)="changeTab(typeAssets.NFT)"
           [ngClass]="typeCurrent === typeAssets.NFT ? 'text-white bg-gradient-to-r from-cyan-500 to-blue-500' : ''"
           class="hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
           NFT
         </button>
+        <button
+          type="button"
+          (click)="changeTab(typeAssets.Token)"
+          [ngClass]="typeCurrent === typeAssets.Token ? 'text-white bg-gradient-to-r from-cyan-500 to-blue-500' : ''"
+          class="hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+          Token
+        </button>
       </div>
-
       <app-transfer-token *ngIf="typeCurrent === typeAssets.Token"></app-transfer-token>
       <app-transfer-nft *ngIf="typeCurrent === typeAssets.NFT"></app-transfer-nft>
     </div>

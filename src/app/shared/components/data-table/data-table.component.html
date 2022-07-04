@@ -1,28 +1,46 @@
-<table mat-table [dataSource]="dataSourceTable" class="mat-elevation-z8">
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
+<div class="table-container">
+  <ng-container>
+    <table mat-table [dataSource]="dataSource" class="table-responsive nft-table">
+      <ng-container *ngFor="let template of templates; index as i">
+        <ng-container [matColumnDef]="template.matColumnDef">
+          <th mat-header-cell *matHeaderCellDef>
+            <div [innerHTML]="template.headerCellDef"></div>
+          </th>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+          <td mat-cell *matCellDef="let data">
+            <div [classList]="[template.cssClass]" ngClass="d-flex align-items-center">
+              <ng-container [ngSwitch]="template.matColumnDef">
+                <ng-container *ngSwitchCase="'timestamp'">
+                  <span>{{ commonService.getDateValue(data[template.matColumnDef])[0] }}</span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'type'">
+                  <span class="text-emerald-700 font-bold">{{ data[template.matColumnDef] }}</span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'price'">
+                  {{ data[template.matColumnDef] | number }}
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  {{ data[template.matColumnDef] }}
+                </ng-container>
+              </ng-container>
+            </div>
+          </td>
+        </ng-container>
+      </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell g-no-data" colspan="9999">
+          {{ 'NO DATA' }}
+        </td>
+      </tr>
+    </table>
+    <app-paginator
+      [length]="pageData.length"
+      [pageSize]="pageData.pageSize"
+      (paginator)="paginatorEmit($event)"
+      (pageEvent)="handlePageEvent($event)">
+    </app-paginator>
   </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+</div>

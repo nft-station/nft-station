@@ -1,6 +1,6 @@
 export class TableTemplate {
-  matColumnDef: string | undefined;
-  headerCellDef: string | undefined;
+  matColumnDef: string;
+  headerCellDef: string;
   desktopOnly?: boolean = false;
   isUrl?: string;
   isShort?: boolean;

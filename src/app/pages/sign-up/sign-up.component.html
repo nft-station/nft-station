@@ -1,1 +1,2 @@
-<p>sign-up works!</p>
+<app-checking-account *ngIf="!accountAvailable"></app-checking-account>
+<app-register *ngIf="accountAvailable"></app-register>

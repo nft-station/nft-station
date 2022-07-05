@@ -145,10 +145,14 @@
       </li>
     </ul>
     <ul class="flex items-center gap-6">
-      <li>
-        <a href="javascript:void(0)" class="text-sm font-sans text-gray-800 font-semibold tracking-wider"> Admin </a>
+      <li *ngIf="user">
+        <a href="javascript:void(0)" class="text-sm font-sans text-gray-800 font-semibold"> Admin </a>
       </li>
-      <li>
+      <li *ngIf="!user" class="flex divide-x-2">
+        <a href="javascript:void(0)" class="text-sm font-sans text-gray-800 font-semibold mr-2"> Login </a>
+        <a routerLink="/sign-up" class="text-sm font-sans text-gray-800 font-semibold pl-2 border-gray-400"> Sign Up </a>
+      </li>
+      <li *ngIf="user">
         <a href="javascript:void(0)">
           <div class="p-2 rounded hover:bg-gray-200">
             <svg

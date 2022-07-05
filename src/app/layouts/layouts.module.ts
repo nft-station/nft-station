@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from './footer/footer.component';
-import { LayoutComponent } from './layout.component';
-import { HeaderComponent } from './header/header.component';
+import { LayoutAuthencationComponent } from './layout-authencation/layout-authencation.component';
+import { HeaderAuthencationComponent } from './layout-authencation/header-authencation/header-authencation.component';
+import { FooterAuthencationComponent } from './layout-authencation/footer-authencation/footer-authencation.component';
+import { LayoutUnauthencationComponent } from './layout-unauthencation/layout-unauthencation.component';
+import { HeaderUnauthencationComponent } from './layout-unauthencation/header-unauthencation/header-unauthencation.component';
+import { FooterUnauthencationComponent } from './layout-unauthencation/footer-unauthencation/footer-unauthencation.component';
 
 @NgModule({
   declarations: [
-    LayoutComponent,
-    HeaderComponent,
-    FooterComponent
+    LayoutAuthencationComponent,
+    HeaderAuthencationComponent,
+    FooterAuthencationComponent,
+    LayoutUnauthencationComponent,
+    HeaderUnauthencationComponent,
+    FooterUnauthencationComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-   
+
   ],
   providers: [],
   exports: []

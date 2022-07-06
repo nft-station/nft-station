@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {SignUpComponent} from "@app/pages/sign-up/sign-up.component";
+import {CheckingAccountComponent} from "@app/pages/sign-up/checking-account/checking-account.component";
+import {RegisterComponent} from "@app/pages/sign-up/register/register.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: SignUpComponent
-  }];
+    component: CheckingAccountComponent
+  },
+  {
+    path: 'mint/:accountName',
+    component: RegisterComponent
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

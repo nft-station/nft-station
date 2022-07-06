@@ -5,6 +5,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { CommonService } from './core/services/common.service';
 import { LayoutsModule } from './layouts/layouts.module';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   exports: [
@@ -15,7 +16,14 @@ import { LayoutsModule } from './layouts/layouts.module';
 export class MaterialModule {}
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, LayoutsModule, MatTableModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    LayoutsModule,
+    MatTableModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [CommonService],
   bootstrap: [AppComponent],
 })

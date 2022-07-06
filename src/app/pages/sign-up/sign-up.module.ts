@@ -5,6 +5,8 @@ import { SignUpRoutingModule } from './sign-up-routing.module';
 import { SignUpComponent } from './sign-up.component';
 import { CheckingAccountComponent } from './checking-account/checking-account.component';
 import { RegisterComponent } from './register/register.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "@app/shared/shared.module";
 
 
 @NgModule({
@@ -15,7 +17,10 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     CommonModule,
-    SignUpRoutingModule
+    SignUpRoutingModule,
+    FormsModule,
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class SignUpModule { }

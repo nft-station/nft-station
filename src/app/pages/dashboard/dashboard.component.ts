@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
 import { TableTemplate } from '@app/core/models/common.model';
 
@@ -7,7 +7,7 @@ import { TableTemplate } from '@app/core/models/common.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   cardData = [
     {
       title: 'Bored Ape Yacht Club',
@@ -119,7 +119,4 @@ export class DashboardComponent implements OnInit {
   ];
 
   btnColor = BTN_COLOR_GRADIENT;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

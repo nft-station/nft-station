@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header-unauthencation',
   templateUrl: './header-unauthencation.component.html',
-  styleUrls: ['./header-unauthencation.component.scss']
+  styleUrls: ['./header-unauthencation.component.scss'],
 })
-export class HeaderUnauthencationComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class HeaderUnauthencationComponent {}

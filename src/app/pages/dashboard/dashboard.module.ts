@@ -1,25 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { SharedModule } from '@app/shared/shared.module';
-import { DataTableModule } from '@app/shared/components/data-table/data-table.module';
+import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
+import { DataTableModule } from '@app/shared/components/data-table/data-table.module';
+import { SharedModule } from '@app/shared/shared.module';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    DashboardRoutingModule,
-    DataTableModule,
-    MatTableModule,
-    SharedModule
-  ],
+  declarations: [DashboardComponent],
+  imports: [CommonModule, RouterModule, DashboardRoutingModule, DataTableModule, MatTableModule, SharedModule],
   providers: [],
-  exports: []
+  exports: [],
 })
-export class DashboardModule { }
+export class DashboardModule {}

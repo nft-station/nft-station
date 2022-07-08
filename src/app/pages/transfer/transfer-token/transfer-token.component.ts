@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
 
 @Component({
@@ -6,10 +6,6 @@ import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
   templateUrl: './transfer-token.component.html',
   styleUrls: ['./transfer-token.component.scss'],
 })
-export class TransferTokenComponent implements OnInit {
+export class TransferTokenComponent {
   btnColor = BTN_COLOR_GRADIENT;
-  constructor() {}
-
-  ngOnInit(): void {
-  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TypeAssets } from '@app/core/constants/assets.enum';
 
 @Component({
@@ -10,14 +10,10 @@ import { TypeAssets } from '@app/core/constants/assets.enum';
 /**
  * Footer Component
  */
-export class TransferComponent implements OnInit {
+export class TransferComponent {
   amountFormat: any;
   typeAssets = TypeAssets;
   typeCurrent = this.typeAssets.NFT;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   changeTab(tabId: TypeAssets): void {
     this.typeCurrent = tabId;

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
 
 @Component({
@@ -6,7 +6,7 @@ import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
   templateUrl: './nft-asset.component.html',
   styleUrls: ['./nft-asset.component.scss'],
 })
-export class NFTAssetComponent implements OnInit {
+export class NFTAssetComponent {
   @Input() itemNFT: any;
   btnColor = BTN_COLOR_GRADIENT;
   modalReference: any;
@@ -16,8 +16,4 @@ export class NFTAssetComponent implements OnInit {
     this.currentData = data;
     this.showModal = !this.showModal;
   }
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

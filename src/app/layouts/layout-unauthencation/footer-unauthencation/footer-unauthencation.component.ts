@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer-unauthencation',
   templateUrl: './footer-unauthencation.component.html',
-  styleUrls: ['./footer-unauthencation.component.scss']
+  styleUrls: ['./footer-unauthencation.component.scss'],
 })
-export class FooterUnauthencationComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class FooterUnauthencationComponent {}

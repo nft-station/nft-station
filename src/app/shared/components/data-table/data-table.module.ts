@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@app/app.module';
-import { DataTableComponent } from './data-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { MaterialModule } from '@app/app.module';
 import { PaginatorModule } from '../paginator/paginator.module';
+import { DataTableComponent } from './data-table.component';
 
 @NgModule({
   declarations: [DataTableComponent],

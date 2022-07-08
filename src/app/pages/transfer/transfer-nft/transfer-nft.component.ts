@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-transfer-nft',
   templateUrl: './transfer-nft.component.html',
   styleUrls: ['./transfer-nft.component.scss'],
 })
-export class TransferNFTComponent implements OnInit {
+export class TransferNFTComponent {
   cardData = [
     {
       title: 'Bored Ape Yacht Club',
@@ -43,7 +43,4 @@ export class TransferNFTComponent implements OnInit {
       price: 3500,
     },
   ];
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -1,28 +1,24 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LayoutAuthencationComponent } from './layout-authencation/layout-authencation.component';
-import { HeaderAuthencationComponent } from './layout-authencation/header-authencation/header-authencation.component';
-import { FooterAuthencationComponent } from './layout-authencation/footer-authencation/footer-authencation.component';
-import { LayoutUnauthencationComponent } from './layout-unauthencation/layout-unauthencation.component';
-import { HeaderUnauthencationComponent } from './layout-unauthencation/header-unauthencation/header-unauthencation.component';
+import { FooterAuthenticationComponent } from './layout-authentication/footer-authentication/footer-authentication.component';
+import { HeaderAuthenticationComponent } from './layout-authentication/header-authentication/header-authentication.component';
+import { LayoutAuthenticationComponent } from './layout-authentication/layout-authentication.component';
 import { FooterUnauthencationComponent } from './layout-unauthencation/footer-unauthencation/footer-unauthencation.component';
+import { HeaderUnauthencationComponent } from './layout-unauthencation/header-unauthencation/header-unauthencation.component';
+import { LayoutUnauthencationComponent } from './layout-unauthencation/layout-unauthencation.component';
 
 @NgModule({
   declarations: [
-    LayoutAuthencationComponent,
-    HeaderAuthencationComponent,
-    FooterAuthencationComponent,
+    LayoutAuthenticationComponent,
+    HeaderAuthenticationComponent,
+    FooterAuthenticationComponent,
     LayoutUnauthencationComponent,
     HeaderUnauthencationComponent,
-    FooterUnauthencationComponent
+    FooterUnauthencationComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-
-  ],
+  imports: [CommonModule, RouterModule],
   providers: [],
-  exports: []
+  exports: [],
 })
-export class LayoutsModule { }
+export class LayoutsModule {}

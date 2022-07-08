@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { formatDistanceToNowStrict } from 'date-fns';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { DATEFORMAT } from '../constants/common.constant';
 import { formatTimeInWords, formatWithSchema } from '../helpers/date';
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CommonService {
   apiUrl = '';
   constructor() {}

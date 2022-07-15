@@ -13,10 +13,10 @@
       <div class="grid lg:grid-cols-2 gap-4">
         <div class="mb-4">
           <div class="relative">
-            <input type="text" id="name"
+            <input type="text" id="name" readonly [disabled]="true"
                    formControlName="name"
-                   class="form-control {{ ((formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['required']) ? formStyle.InputFloatLabelError : formStyle.InputFloatLabel }}" placeholder=" " />
-            <label for="name" class="{{ ((formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['required']) ? formStyle.FloatLabelError : formStyle.FloatLabel }}">Name</label>
+                   class="form-control {{formStyle.InputFloatLabelDisabled}}"/>
+            <label for="name" class="{{formStyle.FloatLabelDisabled}}">* Name</label>
           </div>
           <div class="text-red-600 text-xs italic mt-1"
                *ngIf="(formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['required']">* Required information!</div>
@@ -28,8 +28,12 @@
             <input type="text" id="bio"
                    formControlName="bio"
                    class="form-control {{ formStyle.InputFloatLabel }}" placeholder=" " />
-            <label for="bio" class="{{ formStyle.FloatLabel }}">Bio</label>
+            <label for="bio" class="{{ formStyle.FloatLabel }}">* Bio</label>
           </div>
+          <div class="text-red-600 text-xs italic mt-1"
+               *ngIf="(formControls['bio'].touched || formControls['bio'].dirty) && formControls['bio'].errors?.['required']">* Required information!</div>
+          <div class="text-red-600 text-xs italic mt-1"
+               *ngIf="(formControls['bio'].touched || formControls['bio'].dirty) && formControls['bio'].errors?.['maxlength']">* Maximum characters allowed are 20!</div>
         </div>
         <div class="mb-4">
           <div class="relative">
@@ -44,7 +48,7 @@
             <input type="text" id="email"
                    formControlName="email"
                    class="form-control {{ ((formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors) ? formStyle.InputFloatLabelError : formStyle.InputFloatLabel }}" placeholder=" " />
-            <label for="name" class="{{ ((formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors) ? formStyle.FloatLabelError : formStyle.FloatLabel }}">Email</label>
+            <label for="name" class="{{ ((formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors) ? formStyle.FloatLabelError : formStyle.FloatLabel }}">* Email</label>
           </div>
           <div class="text-red-600 text-xs italic mt-1"
                *ngIf="(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors">* Email format not correct!</div>
@@ -86,22 +90,34 @@
             <input type="text" id="keyBase"
                    formControlName="keyBase"
                    class="form-control {{ formStyle.InputFloatLabel }}" placeholder=" " />
-            <label for="keyBase" class="{{ formStyle.FloatLabel }}">Keybase.io</label>
+            <label for="keyBase" class="{{ formStyle.FloatLabel }}">* Keybase.io</label>
           </div>
+          <div class="text-red-600 text-xs italic mt-1"
+               *ngIf="(formControls['keyBase'].touched || formControls['keyBase'].dirty) && formControls['keyBase'].errors?.['required']">* Required information!</div>
+          <div class="text-red-600 text-xs italic mt-1"
+               *ngIf="(formControls['keyBase'].touched || formControls['keyBase'].dirty) && formControls['keyBase'].errors?.['maxlength']">* Maximum characters allowed are 20!</div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input type="text" id="ValidatorOperatorAddress"
                    formControlName="ValidatorOperatorAddress"
                    class="form-control {{ formStyle.InputFloatLabel }}" placeholder=" " />
-            <label for="ValidatorOperatorAddress" class="{{ formStyle.FloatLabel }}">Validator Operator Address</label>
+            <label for="ValidatorOperatorAddress" class="{{ formStyle.FloatLabel }}">* Validator Operator Address</label>
           </div>
+          <div class="text-red-600 text-xs italic mt-1"
+               *ngIf="(formControls['ValidatorOperatorAddress'].touched || formControls['ValidatorOperatorAddress'].dirty) && formControls['ValidatorOperatorAddress'].errors?.['required']">* Required information!</div>
+          <div class="text-red-600 text-xs italic mt-1"
+               *ngIf="(formControls['ValidatorOperatorAddress'].touched || formControls['ValidatorOperatorAddress'].dirty) && formControls['ValidatorOperatorAddress'].errors?.['maxlength']">* Maximum characters allowed are 20!</div>
         </div>
       </div>
       <button type="submit" [disabled]="regForm.invalid"
         class="mt-3 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all ease-in-out duration-350
           {{ regForm.invalid ? 'cursor-not-allowed bg-blue-400' : 'bg-cyan-700'}}">
             Create Username
+      </button>
+      <button type="button" (click)="regForm.reset(); regForm.controls['name'].setValue(accountName);"
+        class="mt-3 ml-3 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all ease-in-out duration-350 bg-red-600">
+            Cancel
       </button>
     </form>
   </div>

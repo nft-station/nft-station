@@ -3,3 +3,32 @@
     min-height: 60vh;
   }
 }
+.loading-wrapp {
+  float: left;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  .line {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: #4b9cdb;
+    margin: 0 5px;
+    &:nth-last-child(1) {
+      animation: loadingC 0.6s 0.1s linear infinite;
+    }
+    &:nth-last-child(2) {
+      animation: loadingC 0.6s 0.2s linear infinite;
+    }
+    &:nth-last-child(3) {
+      animation: loadingC 0.6s 0.3s linear infinite;
+    }
+  }
+}
+
+@keyframes loadingC {
+  0%   {transform: translate(0, 0);}
+  50%  {transform: translate(0, 15px);}
+  100% {transform: translate(0, 0);}
+}

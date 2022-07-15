@@ -10,13 +10,17 @@ export class CheckingAccountComponent {
   account = '';
   formDataValid = true;
   accountNameAvailable = false;
+  accountNameUnAvailable = false;
   formStyle = FORM_STYLE;
   loading = false;
+  typing = false;
 
   checkAccount() {
+    this.typing = false;
     if (!this.account || (this.account && this.account.trim().length < 5)) {
       this.formDataValid = false;
       this.accountNameAvailable = false;
+      this.accountNameUnAvailable = false;
       return;
     }
     this.formDataValid = true;

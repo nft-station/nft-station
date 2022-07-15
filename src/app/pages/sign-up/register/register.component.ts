@@ -32,16 +32,18 @@ export class RegisterComponent implements OnInit {
   initRegForm() {
     this.regForm = new FormGroup({
       name: new FormControl('', { validators: [Validators.required, Validators.maxLength(20)]}),
-      bio: new FormControl(''),
+      bio: new FormControl('',{ validators: [Validators.required, Validators.maxLength(20)]}),
       imgUrl: new FormControl(''),
       email: new FormControl('', [Validators.email]),
       website: new FormControl(''),
       twitter: new FormControl(''),
       discord: new FormControl(''),
       telegram: new FormControl(''),
-      keyBase: new FormControl(''),
-      ValidatorOperatorAddress: new FormControl(''),
+      keyBase: new FormControl('',{ validators: [Validators.required, Validators.maxLength(20)]}),
+      ValidatorOperatorAddress: new FormControl('',{ validators: [Validators.required, Validators.maxLength(20)]}),
     })
+    this.regForm.controls['name'].setValue(this.accountName);
+    this.regForm.controls['name'].disabled;
   }
   onSubmit() {
     console.log(this.regForm.value)

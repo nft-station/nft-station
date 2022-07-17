@@ -16,7 +16,9 @@
       </p>
     </a>
     <ul class="flex items-center space-x-4 text-sm font-semibold">
-      <li><a href="javascript:void(0)" class="px-2 xl:px-4 py-2 text-gray-800 rounded-md hover:bg-gray-200">My Account</a></li>
+      <li>
+        <a href="javascript:void(0)" class="px-2 xl:px-4 py-2 text-gray-800 rounded-md hover:bg-gray-200">My Account</a>
+      </li>
     </ul>
     <ul class="flex space-x-2 xl:space-x-4 text-sm font-semibold">
       <li>
@@ -83,9 +85,48 @@
       <li *ngIf="user">
         <a href="javascript:void(0)" class="text-sm font-sans text-gray-800 font-semibold"> Admin </a>
       </li>
-      <li *ngIf="!user" class="flex divide-x-2">
-        <a href="javascript:void(0)" class="text-sm font-sans text-gray-800 font-semibold mr-2"> Login </a>
-        <a routerLink="/sign-up" class="text-sm font-sans text-gray-800 font-semibold pl-2 border-gray-400"> Sign Up </a>
+      <li *ngIf="!user" class="flex divide-x-2 items-center">
+        <div class="relative my-3" x-data="{ openAsset: false }" *ngIf="currentAddress">
+          <button
+            id="dropdownDefault"
+            x-on:click="openAsset = !openAsset"
+            x-on:click.outside="openAsset = false"
+            data-dropdown-toggle="dropdown"
+            class="justify-between font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="button"
+            [style]="'min-width:100px;'">
+            <span class="text-xl text-blue-500">{{ currentAddress?.name }}</span>
+            <svg
+              class="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <ul
+            x-cloak
+            x-show="openAsset"
+            x-transition
+            class="absolute top-10 left-0 bg-white p-4 rounded-md shadow overflow-hidden w-64 z-40 mt-4 border-lime-900 border-solid border-2"
+            [style]="'min-width:100px;'">
+            <li>
+              <a
+                href="javascript:void(0)"
+                (click)="disconnect()"
+                class="p-1 block text-sm text-gray-600 rounded flex items-center gap-2 hover:bg-gray-100">
+                Log out
+              </a>
+            </li>
+          </ul>
+        </div>
+        <ng-container *ngIf="!currentAddress">
+          <button type="button" (click)="connectWallet()" [ngClass]="btnColor.CyanToBlue">Connect Wallet</button>
+        </ng-container>
+      </li>
+      <li>
+        <button type="button" [ngClass]="btnColor.TealToLime">Sign Up</button>
       </li>
       <li *ngIf="user">
         <a href="javascript:void(0)">

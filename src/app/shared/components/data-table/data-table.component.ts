@@ -69,7 +69,6 @@ export class DataTableComponent implements OnInit {
 
     let dataTemp = this.sortedData;
     this.dataSource = new MatTableDataSource<any>(dataTemp);
-    console.log(this.pageData);
   }
 
   compare(a: number | string, b: number | string, isAsc: boolean) {

@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
+import { WalletService } from './core/services/wallet.service';
 import { LayoutsModule } from './layouts/layouts.module';
 
 @NgModule({
@@ -27,7 +28,7 @@ export class MaterialModule {}
     ReactiveFormsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [WalletService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

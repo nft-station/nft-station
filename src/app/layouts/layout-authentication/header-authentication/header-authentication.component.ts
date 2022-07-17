@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
+import { WALLET_INFO, WalletService } from '@app/core/services/wallet.service';
 
 @Component({
   selector: 'app-header-authentication',
@@ -7,11 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderAuthenticationComponent implements OnInit {
   user: any = null;
-
-  constructor() {}
+  userAddress = '';
+  btnColor = BTN_COLOR_GRADIENT;
+  currentAddress: any;
+  constructor(private walletService: WalletService) {}
 
   ngOnInit(): void {
-    // get user data
-    this.user = localStorage.getItem('currentUser');
+    this.currentAddress = JSON.parse(localStorage.getItem(WALLET_INFO)!);
+  }
+
+  connectWallet(): void {
+    this.walletService.connectKeplr();
+    setTimeout(() => {
+      this.currentAddress = JSON.parse(localStorage.getItem(WALLET_INFO)!);
+    }, 500);
+  }
+
+  disconnect(): void {
+    this.walletService.disconnect();
+    this.currentAddress = '';
   }
 }

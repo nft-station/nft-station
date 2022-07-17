@@ -25,7 +25,8 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["crypto", "stream", "path", "os", "@cosmjs/cosmwasm-stargate"]
           },
           "configurations": {
             "production": {

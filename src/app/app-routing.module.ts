@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutAuthenticationComponent } from '@app/layouts/layout-authentication/layout-authentication.component';
-import { LayoutUnauthencationComponent } from '@app/layouts/layout-unauthencation/layout-unauthencation.component';
 
 const routes: Routes = [
   {
@@ -11,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'sign-up',
-    component: LayoutUnauthencationComponent,
+    component: LayoutAuthenticationComponent,
     loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule),
   },
   {

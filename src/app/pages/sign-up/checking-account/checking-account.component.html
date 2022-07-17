@@ -4,20 +4,28 @@
     <form (ngSubmit)="checkAccount()" class="col-start-2">
       <div class="mt-6">
         <label for="large-input" class="sr-only"></label>
-        <input type="text" id="large-input"
-               class="{{ formDataValid ? formStyle.InputSingle : formStyle.InputSingleError }}"
-               placeholder="name" required (ngModelChange)="accountNameAvailable = false"
-               [(ngModel)]="account" name="account">
+        <input
+          type="text"
+          id="large-input"
+          class="{{ formDataValid ? formStyle.InputSingle : formStyle.InputSingleError }}"
+          placeholder="name"
+          required
+          (ngModelChange)="accountNameAvailable = null"
+          [(ngModel)]="account"
+          name="account" />
       </div>
+      <span class="text-red-600" *ngIf="accountNameAvailable"> Account is existed: {{ accountNameAvailable }} </span>
     </form>
   </div>
   <app-loading *ngIf="loading"></app-loading>
-  <div *ngIf="accountNameAvailable">
-    <img src="assets/images/check_green.png" alt="" width="150px" class="m-auto">
-    <p class="mt-2 text-base font-medium text-gray-500">"{{this.account}}" is available for register</p>
-    <a [routerLink]="['/sign-up/mint', this.account]" type="button"
-            class="mt-3 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800">
-      Mint your new id
+  <div *ngIf="canRegister">
+    <img src="assets/images/check_green.png" alt="" width="150px" class="m-auto" />
+    <p class="mt-2 text-base font-medium text-gray-500">"{{ this.account }}" is available for register</p>
+    <a
+      [routerLink]="['/sign-up/mint', this.account]"
+      type="button"
+      class="mt-3 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+      MINT YOUR NEW ID
     </a>
   </div>
 </section>

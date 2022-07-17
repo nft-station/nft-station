@@ -1,9 +1,23 @@
-<body class="relative antialiased">
-  <div class="bg-gray-100">
+<div class="relative antialiased min-h-full flex flex-col justify-center">
+  <div class="bg-gray-100 shrink-0">
+    <app-header-authentication></app-header-authentication>
+  </div>
+  <main class="container mx-w-6xl mx-auto py-4 grow">
+    <router-outlet></router-outlet>
+  </main>
+  <div class="shrink-0">
+    <app-footer-authentication></app-footer-authentication>
+  </div>
+</div>
+
+<!-- <div class="relative antialiased h-full flex flex-col justify-center">
+  <div class="bg-gray-100 shrink-0">
     <app-header-authentication></app-header-authentication>
   </div>
   <main class="container mx-w-6xl mx-auto py-4">
     <router-outlet></router-outlet>
   </main>
-  <app-footer-authentication></app-footer-authentication>
-</body>
+  <div class="shrink-0">
+    <app-footer-authentication></app-footer-authentication>
+  </div>
+</div> -->

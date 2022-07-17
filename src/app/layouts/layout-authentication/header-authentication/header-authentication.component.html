@@ -1,4 +1,4 @@
-<nav class="p-4 md:py-8 xl:px-0 md:container md:mx-w-6xl md:mx-auto">
+<nav class="p-4 md:py-6 xl:px-0 md:container md:mx-w-6xl md:mx-auto">
   <div class="hidden lg:flex lg:justify-between lg:items-center">
     <a href="/" class="flex items-start gap-2 group">
       <div class="bg-blue-600 text-white p-2 rounded-md group-hover:bg-blue-800">
@@ -19,9 +19,17 @@
       <li>
         <a href="javascript:void(0)" class="px-2 xl:px-4 py-2 text-gray-800 rounded-md hover:bg-gray-200">My Account</a>
       </li>
+      <li>
+        <a
+          href="javascript:void(0)"
+          routerLink="sign-up"
+          class="px-2 xl:px-4 py-2 text-gray-800 rounded-md hover:bg-gray-200"
+          >Register</a
+        >
+      </li>
     </ul>
     <ul class="flex space-x-2 xl:space-x-4 text-sm font-semibold">
-      <li>
+      <!-- <li>
         <a href="javascript:void(0)">
           <div class="p-2 rounded hover:bg-gray-200">
             <svg
@@ -79,14 +87,14 @@
             </svg>
           </div>
         </a>
-      </li>
+      </li> -->
     </ul>
     <ul class="flex items-center gap-6">
       <li *ngIf="user">
         <a href="javascript:void(0)" class="text-sm font-sans text-gray-800 font-semibold"> Admin </a>
       </li>
       <li *ngIf="!user" class="flex divide-x-2 items-center">
-        <div class="relative my-3" x-data="{ openAsset: false }" *ngIf="currentAddress">
+        <div class="relative" x-data="{ openAsset: false }" *ngIf="currentAddress">
           <button
             id="dropdownDefault"
             x-on:click="openAsset = !openAsset"
@@ -125,9 +133,9 @@
           <button type="button" (click)="connectWallet()" [ngClass]="btnColor.CyanToBlue">Connect Wallet</button>
         </ng-container>
       </li>
-      <li>
+      <!-- <li>
         <button type="button" [ngClass]="btnColor.TealToLime">Sign Up</button>
-      </li>
+      </li> -->
       <li *ngIf="user">
         <a href="javascript:void(0)">
           <div class="p-2 rounded hover:bg-gray-200">

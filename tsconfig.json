@@ -22,6 +22,10 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["es2020", "dom"],
     "paths": {
+      "crypto": ["./node_modules/crypto-browserify"],
+      "stream": ["./node_modules/stream-browserify"],
+      "path": ["./node_modules/path-browserify"],
+      "os": ["./node_modules/os-browserify"],
       "@app/*": ["src/app/*"]
     }
   },

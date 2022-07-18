@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ContractService } from '@app/core/services/contract.service';
-import { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+import { WalletService } from '@app/core/services/wallet.service';
+import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 
 @Component({
   selector: 'app-transfer-nft',
@@ -36,21 +37,21 @@ export class TransferNFTComponent {
     },
     {
       title: 'Doodles',
-      image: 'assets/nft5.png',
+      image: 'assets/images/nft-default.png',
       price: 3500,
     },
     {
       title: 'Azuki',
-      image: 'assets/nft6.png',
+      image: 'assets/images/nft-default.png',
       price: 3500,
     },
   ];
   isLoading = false;
-  constructor(private contractService: ContractService) {}
+  constructor(private contractService: ContractService, private walletService: WalletService) {}
 
   ngOnInit(): void {
     let queryData = {
-      tokens: { owner: 'aura103d2neftkpce223utyz9sc55a8x8ktl44ue9v2' },
+      tokens: { owner: this.walletService?.currentAddress?.bech32Address },
     };
     this.getAccountInfo(queryData);
   }
@@ -60,7 +61,7 @@ export class TransferNFTComponent {
     const client = await SigningCosmWasmClient.connect(this.contractService.RPC);
     try {
       const config = await client.queryContractSmart(this.contractService.contractAddress, queryData);
-      console.log(config);
+      this.cardData = config.tokens;
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;

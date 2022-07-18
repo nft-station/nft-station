@@ -12,8 +12,13 @@ export class NFTAssetComponent {
   modalReference: any;
   showModal = false;
   currentData: any;
+  suffixes = '.aura';
   toggleModal(data: any) {
     this.currentData = data;
     this.showModal = !this.showModal;
+  }
+
+  transferNFT() {
+    
   }
 }

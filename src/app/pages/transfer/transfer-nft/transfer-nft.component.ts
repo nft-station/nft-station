@@ -61,8 +61,9 @@ export class TransferNFTComponent {
     try {
       const config = await client.queryContractSmart(this.contractService.contractAddress, queryData);
       console.log(config);
+      this.isLoading = false;
     } catch (error) {
+      this.isLoading = false;
     }
-    this.isLoading = false;
   }
 }

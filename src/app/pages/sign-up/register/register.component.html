@@ -45,49 +45,49 @@
           <div class="relative">
             <input
               type="text"
-              id="bio"
-              formControlName="bio"
+              id="image"
+              formControlName="image"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="bio" class="{{ formStyle.FloatLabel }}">Bio</label>
+            <label for="image" class="{{ formStyle.FloatLabel }}">image</label>
           </div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input
               type="text"
-              id="imgUrl"
-              formControlName="imgUrl"
+              id="image_data"
+              formControlName="image_data"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="imgUrl" class="{{ formStyle.FloatLabel }}">Image URL</label>
+            <label for="image_data" class="{{ formStyle.FloatLabel }}">Image URL</label>
           </div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input
               type="text"
-              id="email"
-              formControlName="email"
-              class="form-control {{
-                (formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors
-                  ? formStyle.InputFloatLabelError
-                  : formStyle.InputFloatLabel
-              }}"
+              id="external_url"
+              formControlName="external_url"
+              class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
             <label
               for="name"
               class="{{
-                (formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors
+                (formControls['external_url'].touched || formControls['external_url'].dirty) &&
+                formControls['external_url'].errors
                   ? formStyle.FloatLabelError
                   : formStyle.FloatLabel
               }}"
-              >Email</label
+              >external_url</label
             >
           </div>
           <div
             class="text-red-600 text-xs italic mt-1"
-            *ngIf="(formControls['email'].touched || formControls['email'].dirty) && formControls['email'].errors">
+            *ngIf="
+              (formControls['external_url'].touched || formControls['external_url'].dirty) &&
+              formControls['external_url'].errors
+            ">
             * Email format not correct!
           </div>
         </div>
@@ -95,66 +95,55 @@
           <div class="relative">
             <input
               type="text"
-              id="website"
-              formControlName="website"
+              id="description"
+              formControlName="description"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="website" class="{{ formStyle.FloatLabel }}">Website</label>
+            <label for="description" class="{{ formStyle.FloatLabel }}">description</label>
           </div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input
               type="text"
-              id="twitter"
-              formControlName="twitter"
+              id="twitter_id"
+              formControlName="twitter_id"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="twitter" class="{{ formStyle.FloatLabel }}">Twitter</label>
+            <label for="twitter_id" class="{{ formStyle.FloatLabel }}">twitter_id</label>
           </div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input
               type="text"
-              id="discord"
-              formControlName="discord"
+              formControlName="discord_id"
+              id="discord_id"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="discord" class="{{ formStyle.FloatLabel }}">Discord</label>
+            <label for="discord_id" class="{{ formStyle.FloatLabel }}">discord_id</label>
           </div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input
               type="text"
-              id="telegram"
-              formControlName="telegram"
+              formControlName="telegram_id"
+              id="telegram_id"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="telegram" class="{{ formStyle.FloatLabel }}">Telegram</label>
+            <label for="telegram_id" class="{{ formStyle.FloatLabel }}">telegram_id</label>
           </div>
         </div>
         <div class="mb-4">
           <div class="relative">
             <input
               type="text"
-              id="keyBase"
-              formControlName="keyBase"
+              formControlName="facebook_id"
+              id="facebook_id"
               class="form-control {{ formStyle.InputFloatLabel }}"
               placeholder=" " />
-            <label for="keyBase" class="{{ formStyle.FloatLabel }}">Keybase.io</label>
-          </div>
-        </div>
-        <div class="mb-4">
-          <div class="relative">
-            <input
-              type="text"
-              id="ValidatorOperatorAddress"
-              formControlName="ValidatorOperatorAddress"
-              class="form-control {{ formStyle.InputFloatLabel }}"
-              placeholder=" " />
-            <label for="ValidatorOperatorAddress" class="{{ formStyle.FloatLabel }}">Validator Operator Address</label>
+            <label for="facebook_id" class="{{ formStyle.FloatLabel }}">facebook_id</label>
           </div>
         </div>
       </div>

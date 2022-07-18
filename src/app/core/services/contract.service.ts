@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { from, Observable, of } from 'rxjs';
+
 import { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
-import { from, lastValueFrom, Observable } from 'rxjs';
+import { StdFee } from '@cosmjs/stargate';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +16,47 @@ export class ContractService {
 
   client: CosmWasmClient;
 
+  private _signer: SigningCosmWasmClient;
+
   constructor() {
     SigningCosmWasmClient.connect(this.RPC).then(client => (this.client = client));
+
+    if ((window as any).getOfflineSignerOnlyAmino) {
+      let singer = (window as any).getOfflineSignerOnlyAmino(this.CHAIN_ID);
+      SigningCosmWasmClient.connectWithSigner(this.RPC, singer).then(e => {
+        console.log(e);
+
+        this._signer = e;
+      });
+    }
   }
 
-  queryContractSmart(msg: Record<string, unknown>): Observable<any> {
+  queryContractSmart(msg: Record<string, unknown>): Observable<unknown> {
     return from(this.client.queryContractSmart(this.contractAddress, msg));
   }
-  execute() {}
+
+  get signer(): SigningCosmWasmClient | undefined {
+    if (this._signer) {
+      return this._signer;
+    }
+
+    return undefined;
+  }
+
+  execute(userAddress: string, msg: Record<string, unknown>): Observable<any> {
+    if (this.signer && msg) {
+      const fee: StdFee = {
+        amount: [
+          {
+            denom: 'uaura',
+            amount: '1',
+          },
+        ],
+        gas: '500000',
+      };
+      return from(this.signer.execute(userAddress, this.contractAddress, msg, fee));
+    }
+
+    return of(null);
+  }
 }

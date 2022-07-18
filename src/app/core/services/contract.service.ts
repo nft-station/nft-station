@@ -19,20 +19,26 @@ export class ContractService {
   private _signer: SigningCosmWasmClient;
 
   constructor() {
-    SigningCosmWasmClient.connect(this.RPC).then(client => (this.client = client));
+    this.connectClient();
 
     if ((window as any).getOfflineSignerOnlyAmino) {
       let singer = (window as any).getOfflineSignerOnlyAmino(this.CHAIN_ID);
       SigningCosmWasmClient.connectWithSigner(this.RPC, singer).then(e => {
-        console.log(e);
-
         this._signer = e;
       });
     }
   }
 
+  connectClient() {
+    return SigningCosmWasmClient.connect(this.RPC).then(client => (this.client = client));
+  }
+
   queryContractSmart(msg: Record<string, unknown>): Observable<unknown> {
-    return from(this.client.queryContractSmart(this.contractAddress, msg));
+    if (this.client) {
+      return from(this.client.queryContractSmart(this.contractAddress, msg));
+    }
+
+    return from(this.connectClient().then(_ => this.client.queryContractSmart(this.contractAddress, msg)));
   }
 
   get signer(): SigningCosmWasmClient | undefined {

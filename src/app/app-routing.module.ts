@@ -18,6 +18,11 @@ const routes: Routes = [
     component: LayoutAuthenticationComponent,
     loadChildren: () => import('./pages/transfer/transfer.module').then(m => m.TransferModule),
   },
+  {
+    path: 'name-service',
+    component: LayoutAuthenticationComponent,
+    loadChildren: () => import('./pages/name-service/name-service.module').then(m => m.NameServiceModule),
+  },
 ];
 
 @NgModule({

@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
+import { ToastrModule } from 'ngx-toastr';
 import { WalletService } from './core/services/wallet.service';
 import { LayoutsModule } from './layouts/layouts.module';
 
@@ -27,6 +28,7 @@ export class MaterialModule {}
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    ToastrModule.forRoot({ positionClass: 'inline' }),
   ],
   providers: [WalletService],
   bootstrap: [AppComponent],

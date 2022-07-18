@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Keplr } from '@keplr-wallet/types';
@@ -8,6 +8,7 @@ import { from, mergeMap, of } from 'rxjs';
 
 import { FORM_STYLE } from '@app/core/constants/common.constant';
 import { ContractService } from '@app/core/services/contract.service';
+import { GToastrService } from '@app/core/services/toast.service';
 import { omitBy_Nil } from '@app/core/utils/lodash';
 
 @Component({
@@ -22,7 +23,12 @@ export class EditComponent implements OnInit {
 
   loading = true;
 
-  constructor(private router: Router, private route: ActivatedRoute, private contractService: ContractService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private contractService: ContractService,
+    private t: GToastrService
+  ) {}
 
   ngOnInit(): void {
     this.accountName = this.route.snapshot.params['accountName'];
@@ -84,8 +90,6 @@ export class EditComponent implements OnInit {
             res as any
           )?.extension;
 
-          console.log(res);
-
           this.regForm.patchValue({
             image,
             image_data,
@@ -100,7 +104,6 @@ export class EditComponent implements OnInit {
           this.loading = false;
         },
         error: e => {
-          console.log(e);
           this.loading = false;
 
           this.router.navigate(['']);
@@ -127,11 +130,14 @@ export class EditComponent implements OnInit {
         )
         .subscribe({
           next: res => {
-            console.log('mint res', res);
             this.loading = false;
+
+            this.t.success('Update Success');
           },
           error: err => {
             this.loading = false;
+
+            this.t.error(err?.message || '', 'Update Fail');
             console.log('err', err);
           },
         });

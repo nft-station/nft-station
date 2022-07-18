@@ -6,7 +6,8 @@ import { ContractService } from '@app/core/services/contract.service';
 
 import { Keplr } from '@keplr-wallet/types';
 import { omitBy_Nil } from '@app/core/utils/lodash';
-import { from, mergeMap } from 'rxjs';
+import { delay, from, mergeMap, of } from 'rxjs';
+import { GToastrService } from '@app/core/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,12 @@ export class RegisterComponent implements OnInit {
 
   loading = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private contractService: ContractService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private contractService: ContractService,
+    private t: GToastrService
+  ) {}
 
   ngOnInit(): void {
     this.accountName = this.route.snapshot.params['accountName'];
@@ -72,9 +78,15 @@ export class RegisterComponent implements OnInit {
           next: res => {
             this.loading = false;
             console.log('mint res', res);
+            this.t.success('Register Success');
+
+            of(1)
+              .pipe(delay(1000))
+              .subscribe(t => this.router.navigate(['transfer']));
           },
           error: err => {
             this.loading = false;
+            this.t.error(err?.message || '', 'Register Fail');
             console.log('err', err);
           },
         });

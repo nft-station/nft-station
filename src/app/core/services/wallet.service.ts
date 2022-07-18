@@ -17,6 +17,7 @@ export class WalletService {
   currentAddress: any;
 
   constructor() {
+    this.currentAddress = JSON.parse(localStorage.getItem(WALLET_INFO)!);
   }
 
   setWallet(nextState: Key): void {

@@ -1,33 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FORM_STYLE } from '@app/core/constants/common.constant';
-import { ContractService } from '@app/core/services/contract.service';
 
 import { Keplr } from '@keplr-wallet/types';
+
+import { from, mergeMap, of } from 'rxjs';
+
+import { FORM_STYLE } from '@app/core/constants/common.constant';
+import { ContractService } from '@app/core/services/contract.service';
 import { omitBy_Nil } from '@app/core/utils/lodash';
-import { from, mergeMap } from 'rxjs';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class EditComponent implements OnInit {
   formStyle = FORM_STYLE;
   accountName = '';
   regForm!: FormGroup;
 
-  loading = false;
+  loading = true;
 
   constructor(private router: Router, private route: ActivatedRoute, private contractService: ContractService) {}
 
   ngOnInit(): void {
     this.accountName = this.route.snapshot.params['accountName'];
     if (!this.accountName) {
-      this.router.navigate(['/sign-up']);
+      this.router.navigate(['']);
     }
+
     this.initRegForm();
+
+    this.loadData();
   }
 
   get formControls() {
@@ -36,10 +41,6 @@ export class RegisterComponent implements OnInit {
 
   initRegForm() {
     this.regForm = new FormGroup({
-      name: new FormControl(
-        { value: this.accountName, disabled: true },
-        { validators: [Validators.required, Validators.maxLength(20)] }
-      ),
       image: new FormControl(),
       image_data: new FormControl(),
       external_url: new FormControl(),
@@ -49,6 +50,62 @@ export class RegisterComponent implements OnInit {
       telegram_id: new FormControl(),
       facebook_id: new FormControl(),
     });
+  }
+
+  loadData() {
+    this.contractService
+      .queryContractSmart({
+        address_of: {
+          token_id: this.accountName,
+        },
+      })
+      .pipe(
+        mergeMap(address => {
+          if ((address as any).owner === 'aura1xahhax60fakwfng0sdd6wcxd0eeu00r5w3s49h') {
+            return this.contractService.queryContractSmart({
+              nft_info: {
+                token_id: this.accountName,
+              },
+            });
+          }
+
+          return of(null);
+        })
+      )
+
+      .subscribe({
+        next: res => {
+          if (!res) {
+            this.router.navigate(['']);
+
+            return;
+          }
+          const { image, image_data, external_url, description, twitter_id, discord_id, telegram_id, facebook_id } = (
+            res as any
+          )?.extension;
+
+          console.log(res);
+
+          this.regForm.patchValue({
+            image,
+            image_data,
+            external_url,
+            description,
+            twitter_id,
+            discord_id,
+            telegram_id,
+            facebook_id,
+          });
+
+          this.loading = false;
+        },
+        error: e => {
+          console.log(e);
+          this.loading = false;
+
+          this.router.navigate(['']);
+        },
+      });
   }
 
   onSubmit() {
@@ -64,14 +121,14 @@ export class RegisterComponent implements OnInit {
       )
         .pipe(
           mergeMap(address => {
-            const mintMsg = this.makeMintMessage(address);
+            const mintMsg = this.makeUpdateMsg();
             return this.contractService.execute(address, mintMsg);
           })
         )
         .subscribe({
           next: res => {
-            this.loading = false;
             console.log('mint res', res);
+            this.loading = false;
           },
           error: err => {
             this.loading = false;
@@ -81,16 +138,14 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  makeMintMessage(address: string) {
-    const { name, image, image_data, external_url, description, twitter_id, discord_id, telegram_id, facebook_id } =
+  makeUpdateMsg() {
+    const { image, image_data, external_url, description, twitter_id, discord_id, telegram_id, facebook_id } =
       this.regForm.value;
 
     return omitBy_Nil({
-      mint: {
-        token_id: name || this.formControls['name'].value,
-        owner: address,
-        token_uri: '',
-        extension: omitBy_Nil({
+      update_meta_data: {
+        token_id: this.accountName,
+        metadata: omitBy_Nil({
           image,
           image_data,
           external_url,

@@ -7,40 +7,15 @@
       <div
         class="mt-3 p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
         role="alert">
-        <i class="fa-solid fa-circle-info"></i> The mint cost for this token is 0 AURA
+        <i class="fa-solid fa-circle-info"></i> Update Your Profile
       </div>
     </div>
   </div>
   <div
     class="mt-6 mx-auto inline-block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 form-contain">
-    <h1 class="text-slate-600 leading-10 text-4xl font-bold text-cyan-700">Register</h1>
+    <h1 class="text-slate-600 leading-10 text-4xl font-bold text-cyan-700">Update</h1>
     <form [formGroup]="regForm" (ngSubmit)="onSubmit()" class="mt-3">
       <div class="grid lg:grid-cols-2 gap-4">
-        <div class="mb-4">
-          <div class="relative">
-            <input
-              type="text"
-              id="name"
-              formControlName="name"
-              class="form-control {{ ((formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['required']) ? formStyle.InputFloatLabelError : formStyle.InputFloatLabel }}"
-              placeholder=" " />
-            <label
-              for="name"
-              class="{{ ((formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['required']) ? formStyle.FloatLabelError : formStyle.FloatLabel }}"
-              >Name</label
-            >
-          </div>
-          <div
-            class="text-red-600 text-xs italic mt-1"
-            *ngIf="(formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['required']">
-            * Required information!
-          </div>
-          <div
-            class="text-red-600 text-xs italic mt-1"
-            *ngIf="(formControls['name'].touched || formControls['name'].dirty) && formControls['name'].errors?.['maxlength']">
-            * Maximum characters allowed are 20!
-          </div>
-        </div>
         <div class="mb-4">
           <div class="relative">
             <input
@@ -148,14 +123,13 @@
         </div>
       </div>
       <app-loading *ngIf="loading"></app-loading>
-
       <div class="flex justify-end">
         <button
           type="submit"
           [disabled]="regForm.invalid"
           class="mt-3 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all ease-in-out duration-350
           {{ regForm.invalid ? 'cursor-not-allowed bg-blue-400' : 'bg-cyan-700' }}">
-          Create Username
+          Update MetaData
         </button>
       </div>
     </form>

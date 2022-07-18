@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ContractService } from '@app/core/services/contract.service';
+import { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 
 @Component({
   selector: 'app-transfer-nft',
@@ -43,4 +45,24 @@ export class TransferNFTComponent {
       price: 3500,
     },
   ];
+  isLoading = false;
+  constructor(private contractService: ContractService) {}
+
+  ngOnInit(): void {
+    let queryData = {
+      tokens: { owner: 'aura103d2neftkpce223utyz9sc55a8x8ktl44ue9v2' },
+    };
+    this.getAccountInfo(queryData);
+  }
+
+  async getAccountInfo(queryData: any) {
+    this.isLoading = true;
+    const client = await SigningCosmWasmClient.connect(this.contractService.RPC);
+    try {
+      const config = await client.queryContractSmart(this.contractService.contractAddress, queryData);
+      console.log(config);
+    } catch (error) {
+    }
+    this.isLoading = false;
+  }
 }

@@ -1,5 +1,8 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-4 xl:p-0 gap-4 xl:gap-6">
-  <ng-container *ngFor="let item of cardData">
-    <app-nft-asset [itemNFT]="item"></app-nft-asset>
+  <app-loading *ngIf="isLoading"></app-loading>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngFor="let item of cardData">
+      <app-nft-asset [itemNFT]="item"></app-nft-asset>
+    </ng-container>
   </ng-container>
 </div>

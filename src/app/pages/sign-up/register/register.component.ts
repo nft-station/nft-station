@@ -50,9 +50,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    const { name, image, image_data, external_url, description, twitter_id, discord_id, telegram_id, facebook_id } =
-      this.regForm.value;
-
     if ((window as any).keplr) {
       const keplr: Keplr = (window as any).keplr;
       const CHAIN_ID = 'serenity-testnet-001';
@@ -60,40 +57,13 @@ export class RegisterComponent implements OnInit {
       from(
         keplr
           .enable(CHAIN_ID)
-          .then()
-          .then(_ => {
-            return keplr.getKey(CHAIN_ID);
-          })
-          .then(account => {
-            console.log(account);
-
-            return account?.bech32Address;
-          })
+          .then(_ => keplr.getKey(CHAIN_ID))
+          .then(account => account?.bech32Address)
       )
         .pipe(
           mergeMap(address => {
-            const extension = getObject({
-              image,
-              image_data,
-              external_url,
-              description,
-              twitter_id,
-              discord_id,
-              telegram_id,
-              facebook_id,
-            });
-
-            const mintMessage = getObject({
-              mint: {
-                token_id: name || this.formControls['name'].value,
-                owner: address,
-                token_uri: '',
-                extension,
-              },
-            });
-
-            console.log(mintMessage);
-            return this.contractService.execute(address, mintMessage);
+            const mintMsg = this.makeMintMessage(address);
+            return this.contractService.execute(address, mintMsg);
           })
         )
         .subscribe({
@@ -105,6 +75,29 @@ export class RegisterComponent implements OnInit {
           },
         });
     }
+  }
+
+  makeMintMessage(address: string) {
+    const { name, image, image_data, external_url, description, twitter_id, discord_id, telegram_id, facebook_id } =
+      this.regForm.value;
+
+    return getObject({
+      mint: {
+        token_id: name || this.formControls['name'].value,
+        owner: address,
+        token_uri: '',
+        extension: getObject({
+          image,
+          image_data,
+          external_url,
+          description,
+          twitter_id,
+          discord_id,
+          telegram_id,
+          facebook_id,
+        }),
+      },
+    });
   }
 }
 function getObject(obj: any) {

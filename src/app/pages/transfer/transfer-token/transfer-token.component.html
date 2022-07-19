@@ -1,7 +1,7 @@
 <div class="box-transfer flex gap-6 pb-3">
-  <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Select coin</h2>
+  <!-- <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Token</h2>
   <div class="">
-    Coin
+     Coin
     <div class="relative my-3" x-data="{ openAsset: false }">
       <button
         id="dropdownDefault"
@@ -49,7 +49,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div> -->
 </div>
 <div class="box-transfer flex gap-6 pb-3">
   <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Send to</h2>
@@ -61,6 +61,8 @@
         <input
           type="text"
           id="input-group-1"
+          (blur)="checkWallet()"
+          [(ngModel)]="address"
           [style]="'min-width:400px;'"
           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter Address" />
@@ -71,6 +73,7 @@
           </svg>
         </div>
       </div>
+      <p *ngIf="invalidName" class="text-rose-600 text-md">Wallet address does not exist</p>
     </div>
   </div>
 </div>
@@ -90,7 +93,7 @@
           <span class="cursor-pointer">MAX</span>
           <span
             class="inline-flex items-center px-3 ml-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-l-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-            USDT
+            Aura
           </span>
         </div>
       </div>
@@ -98,15 +101,13 @@
   </div>
 </div>
 <div class="box-transfer flex gap-6 pb-3">
-  <h2 class="text-gray-800 font-bold tracking-widest leading-tight">Receive amount</h2>
-  <div class="gap-4">
+  <h2 class="text-gray-800 font-bold tracking-widest leading-tight"></h2>
+  <!-- <div class="gap-4">
     <p class="text-lg text-gray-600 tracking-wider">0 USDT</p>
     0.29 USDT network fee included
-  </div>
+  </div> -->
   <div class="gap-4">
-    <button
-      type="button"
-      [ngClass]="btnColor.PinkToOrange">
+    <button type="button" [disabled]="invalidName" [ngClass]="btnColor.PinkToOrange" [class.btn-disable]="invalidName" (click)="transferToken()">
       Withdraw
     </button>
   </div>

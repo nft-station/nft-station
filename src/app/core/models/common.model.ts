@@ -12,3 +12,7 @@ export class TableTemplate {
   headerWidth?: number;
   justify?: 'center' | 'flex-start' | 'flex-end';
 }
+
+export class OwnerNFTDto {
+  owner: string;
+}

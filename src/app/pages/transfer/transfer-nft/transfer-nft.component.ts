@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContractService } from '@app/core/services/contract.service';
 import { WalletService } from '@app/core/services/wallet.service';
-import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+import { ETransferStatus } from '@app/shared/components/nft-asset/nft-asset.component';
 
 @Component({
   selector: 'app-transfer-nft',
@@ -9,7 +9,7 @@ import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
   styleUrls: ['./transfer-nft.component.scss'],
 })
 export class TransferNFTComponent implements OnInit {
-  cardData = [];
+  cardData: string[] = [];
   isLoading = false;
   constructor(private contractService: ContractService, private walletService: WalletService) {}
 
@@ -35,5 +35,17 @@ export class TransferNFTComponent implements OnInit {
           this.isLoading = false;
         },
       });
+  }
+
+  handleTransfer(e: ETransferStatus) {
+    switch (e) {
+      case ETransferStatus.TRANSFERRING:
+        this.isLoading = true;
+        break;
+      default:
+        this.isLoading = false;
+
+        this.loadTokens();
+    }
   }
 }

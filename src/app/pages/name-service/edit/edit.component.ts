@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Keplr } from '@keplr-wallet/types';
+import { Keplr, Key } from '@keplr-wallet/types';
 
 import { from, mergeMap, of } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { FORM_STYLE } from '@app/core/constants/common.constant';
 import { ContractService } from '@app/core/services/contract.service';
 import { GToastrService } from '@app/core/services/toast.service';
 import { omitBy_Nil } from '@app/core/utils/lodash';
+import { WalletService } from '@app/core/services/wallet.service';
 
 @Component({
   selector: 'app-edit',
@@ -24,16 +25,22 @@ export class EditComponent implements OnInit {
   loading = true;
 
   isUpdate = false;
+  accountKey: Key | undefined;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private contractService: ContractService,
     private t: GToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private w: WalletService
   ) {}
 
   ngOnInit(): void {
+    this.w.account$.subscribe({
+      next: key => (this.accountKey = key),
+    });
+
     this.accountName = this.route.snapshot.params['accountName'];
     if (!this.accountName) {
       this.router.navigate(['']);
@@ -134,40 +141,37 @@ export class EditComponent implements OnInit {
 
       this.regForm.enable();
     } else {
-      if ((window as any).keplr) {
-        const keplr: Keplr = (window as any).keplr;
-        const CHAIN_ID = 'serenity-testnet-001';
-        this.loading = true;
-        from(
-          keplr
-            .enable(CHAIN_ID)
-            .then(_ => keplr.getKey(CHAIN_ID))
-            .then(account => account?.bech32Address)
-        )
-          .pipe(
-            mergeMap(address => {
-              const mintMsg = this.makeUpdateMsg();
-              return this.contractService.execute(address, mintMsg);
-            })
-          )
-          .subscribe({
-            next: res => {
-              this.loading = false;
-
-              this.t.success('Update Success');
-
-              this.disableForm();
-            },
-            error: err => {
-              this.loading = false;
-
-              this.t.error(err?.message || '', 'Update Fail');
-              console.log('err', err);
-
-              this.disableForm();
-            },
-          });
+      if (this.accountKey?.bech32Address) {
+        this.updateNft();
+      } else {
+        this.t.error('Please connect Your Wallet!');
       }
+    }
+  }
+
+  updateNft() {
+    const address = this.accountKey?.bech32Address;
+    if (address) {
+      this.loading = true;
+
+      const mintMsg = this.makeUpdateMsg();
+      this.contractService.execute(address, mintMsg).subscribe({
+        next: _ => {
+          this.loading = false;
+
+          this.t.success('Update Success');
+
+          this.disableForm();
+        },
+        error: err => {
+          this.loading = false;
+
+          this.t.error(err?.message || '', 'Update Fail');
+          console.log('err', err);
+
+          this.disableForm();
+        },
+      });
     }
   }
 

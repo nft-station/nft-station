@@ -20,12 +20,11 @@ export class ContractService {
   constructor() {
     this.connectClient();
 
-    if ((window as any).getOfflineSignerOnlyAmino) {
-      let singer = (window as any).getOfflineSignerOnlyAmino(this.CHAIN_ID);
-      SigningCosmWasmClient.connectWithSigner(this.RPC, singer).then(e => {
+    this.getSigner().then(signer => {
+      return SigningCosmWasmClient.connectWithSigner(this.RPC, signer).then(e => {
         this._signer = e;
       });
-    }
+    });
   }
 
   connectClient() {
@@ -63,5 +62,9 @@ export class ContractService {
     }
 
     return of(null);
+  }
+
+  private async getSigner() {
+    return (window as any).getOfflineSigner(this.CHAIN_ID);
   }
 }

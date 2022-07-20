@@ -1,21 +1,21 @@
 <div class="bg-white p-6 rounded-xl border border-gray-50 shadow-md">
-  <img
-    *ngIf="itemNFT?.image"
-    src="{{ itemNFT?.image }}"
+  <!-- <img
+    *ngIf="itemName?.image"
+    src="{{ itemName?.image }}"
     alt="icon"
     style="width: 300px; height: 300px"
-    class="object-cover mb-3" />
+    class="object-cover mb-3" /> -->
   <div class="box-img flex justify-center content-center items-center">
-    <span class="tracking-wide font-bold text-3xl inline-block align-bottom mb-4">{{ itemNFT + suffixes }}</span>
+    <span class="tracking-wide font-bold text-3xl inline-block align-bottom mb-4">{{ itemName }}</span>
   </div>
-  <div class="text-gray-600 tracking-wide font-bold text-2xl my-3">{{ itemNFT + suffixes }}</div>
+  <div class="text-gray-600 tracking-wide font-bold text-2xl my-3">{{ itemName }}</div>
 
   <div class="flex justify-between items-start">
     <div class="flex flex-col w-full">
-      <button type="button" [ngClass]="btnColor.CyanToBlue" [routerLink]="['/name-service/', this.itemNFT]">
+      <button type="button" [ngClass]="btnColor.CyanToBlue" [routerLink]="['/name-service/', this.itemName]">
         Detail
       </button>
-      <button type="button" [ngClass]="btnColor.PinkToOrange" (click)="toggleModal(itemNFT)">Transfer</button>
+      <button type="button" [ngClass]="btnColor.PinkToOrange" (click)="toggleModal(itemName)">Transfer</button>
     </div>
   </div>
 </div>
@@ -30,10 +30,10 @@
       <!--header-->
       <div class="p-5 border-b border-solid border-slate-200 rounded-t text-center">
         <h3 class="text-3xl font-semibold">
-          Transfer <span class="text-cyan-600 text-xl">{{ currentData + suffixes }}</span>
+          Transfer <span class="text-cyan-600 text-xl">{{ itemName }}</span>
         </h3>
         <div class="box-img flex justify-center content-center items-center m-auto" style="width: 150px; height: 150px">
-          <span class="tracking-wide font-bold text-xl inline-block align-bottom mb-4">{{ itemNFT + suffixes }}</span>
+          <span class="tracking-wide font-bold text-xl inline-block align-bottom mb-4">{{ itemName }}</span>
         </div>
       </div>
       <!--body-->
@@ -60,6 +60,7 @@
               </div>
             </div>
             <p *ngIf="invalidName" class="text-rose-600 text-md">Wallet address does not exist</p>
+            <p *ngIf="addressTransfer" class="text-green-600 text-md">Send to: {{ addressTransfer }}</p>
           </div>
         </div>
       </div>

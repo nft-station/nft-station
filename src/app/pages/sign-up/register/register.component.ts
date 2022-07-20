@@ -67,48 +67,36 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.accountKey) {
+    if (this.accountKey?.bech32Address) {
       this.mint();
     } else {
-      // this.w.connectKeplr().then(_ => {
-      //   this.mint;
-      // });
       this.t.error('Please connect Your Wallet!');
     }
   }
 
   mint() {
-    if ((window as any).keplr) {
-      const keplr: Keplr = (window as any).keplr;
-      const CHAIN_ID = 'serenity-testnet-001';
-      this.loading = true;
-      from(
-        keplr
-          .enable(CHAIN_ID)
-          .then(_ => keplr.getKey(CHAIN_ID))
-          .then(account => account?.bech32Address)
-      )
-        .pipe(
-          mergeMap(address => {
-            const mintMsg = this.makeMintMessage(address);
-            return this.contractService.execute(address, mintMsg);
-          })
-        )
-        .subscribe({
-          next: res => {
-            this.loading = false;
-            this.t.success('Register Success');
+    const accountAddress = this.accountKey?.bech32Address;
 
-            of(1)
-              .pipe(delay(1000))
-              .subscribe(t => this.router.navigate(['transfer']));
-          },
-          error: err => {
-            this.loading = false;
-            this.t.error(err?.message || '', 'Register Fail');
-            console.log('err', err);
-          },
-        });
+    if (accountAddress) {
+      const mintMsg = this.makeMintMessage(accountAddress);
+
+      this.contractService.execute(accountAddress, mintMsg).subscribe({
+        next: res => {
+          this.loading = false;
+          this.t.success('Register Success');
+
+          of(1)
+            .pipe(delay(1000))
+            .subscribe(t => this.router.navigate(['transfer']));
+        },
+        error: err => {
+          this.loading = false;
+          this.t.error(err?.message || '', 'Register Fail');
+          console.log('err', err);
+        },
+      });
+    } else {
+      this.t.error('Please connect Your Wallet!');
     }
   }
 

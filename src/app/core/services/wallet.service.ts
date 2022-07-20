@@ -35,6 +35,10 @@ export class WalletService {
   constructor() {
     this.currentKey = JSON.parse(localStorage.getItem(WALLET_INFO)!);
 
+    if (this.currentKey) {
+      this.connectKeplr();
+    }
+
     this.account$ = this.accountSub.asObservable();
   }
 
@@ -56,10 +60,6 @@ export class WalletService {
             .experimentalSuggestChain(this.chainInfo)
             .then(() => keplr.enable(this.chainId))
             .then(() => keplr.getKey(this.chainId));
-
-          // await keplr.enable(this.chainId);
-
-          // const account = await keplr.getKey(this.chainId);
 
           if (account) {
             this.setWallet(account);

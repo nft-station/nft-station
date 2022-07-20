@@ -72,6 +72,8 @@ export class ContractService {
   getBalance(userAddress: any, denom = '') {
     return this.client.getBalance(userAddress, denom).then(data => {
       this.balance = Number(data?.amount) || 0;
+
+      return Number(data?.amount) || 0;
     });
   }
 }

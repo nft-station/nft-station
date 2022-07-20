@@ -23,6 +23,8 @@ export class TransferTokenComponent implements OnInit {
   sendAmount = '';
   isExceedAmount = false;
 
+  accountBalance = 0;
+
   constructor(
     private contractService: ContractService,
     private walletService: WalletService,
@@ -33,7 +35,9 @@ export class TransferTokenComponent implements OnInit {
     this.walletService.account$.subscribe({
       next: key => (this.accountKey = key),
     });
-    this.contractService.getBalance(this.accountKey?.bech32Address, 'uaura');
+    this.contractService
+      .getBalance(this.accountKey?.bech32Address, 'uaura')
+      .then(balance => (this.accountBalance = balance / this.numberConvert));
   }
 
   checkWallet() {
@@ -88,7 +92,9 @@ export class TransferTokenComponent implements OnInit {
           this.addressTransfer = '';
 
           this.isLoading = false;
-          this.contractService.getBalance(this.accountKey?.bech32Address, 'uaura');
+          this.contractService
+            .getBalance(this.accountKey?.bech32Address, 'uaura')
+            .then(balance => (this.accountBalance = balance / this.numberConvert));
         })
         .catch(_ => {
           this.toast.error('Transfer Fail');
@@ -151,7 +157,11 @@ export class TransferTokenComponent implements OnInit {
   }
 
   checkFromValid() {
-    if (this.invalidName || this.isExceedAmount || !(Number(this.sendAmount) > 0 && this.recipientAddress?.length > 0)) {
+    if (
+      this.invalidName ||
+      this.isExceedAmount ||
+      !(Number(this.sendAmount) > 0 && this.recipientAddress?.length > 0)
+    ) {
       this.isValidForm = false;
     } else {
       this.isValidForm = true;

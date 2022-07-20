@@ -26,12 +26,10 @@ export class TransferTokenComponent {
         })
         .subscribe({
           next: e => {
-            console.log(e);
             this.invalidName = false;
           },
           error: e => {
             this.invalidName = true;
-            console.log(e);
           },
           complete: () => {
             this.invalidName = false;
@@ -40,6 +38,5 @@ export class TransferTokenComponent {
     }
   }
 
-  transferToken() {
-  }
+  transferToken() {}
 }

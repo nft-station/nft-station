@@ -7,7 +7,6 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { ToastrModule } from 'ngx-toastr';
-import { WalletService } from './core/services/wallet.service';
 import { LayoutsModule } from './layouts/layouts.module';
 
 @NgModule({
@@ -30,7 +29,7 @@ export class MaterialModule {}
     MaterialModule,
     ToastrModule.forRoot({ positionClass: 'inline' }),
   ],
-  providers: [WalletService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

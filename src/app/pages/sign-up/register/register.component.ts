@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FORM_STYLE } from '@app/core/constants/common.constant';
 import { ContractService } from '@app/core/services/contract.service';
 
-import { Keplr } from '@keplr-wallet/types';
+import { Keplr, Key } from '@keplr-wallet/types';
 import { omitBy_Nil } from '@app/core/utils/lodash';
-import { delay, from, mergeMap, of } from 'rxjs';
+import { delay, from, mergeMap, of, tap } from 'rxjs';
 import { GToastrService } from '@app/core/services/toast.service';
+import { WalletService } from '@app/core/services/wallet.service';
 
 @Component({
   selector: 'app-register',
@@ -21,17 +22,25 @@ export class RegisterComponent implements OnInit {
 
   loading = false;
 
+  accountKey: Key | undefined;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private contractService: ContractService,
-    private t: GToastrService
+    private t: GToastrService,
+    private w: WalletService
   ) {}
 
   ngOnInit(): void {
     this.accountName = this.route.snapshot.params['accountName'];
+
+    this.w.account$.subscribe({
+      next: key => (this.accountKey = key),
+    });
+
     if (!this.accountName) {
-      this.router.navigate(['/sign-up']);
+      this.router.navigate(['/']);
     }
     this.initRegForm();
   }
@@ -58,6 +67,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.accountKey) {
+      this.mint();
+    } else {
+      // this.w.connectKeplr().then(_ => {
+      //   this.mint;
+      // });
+      this.t.error('Please connect Your Wallet!');
+    }
+  }
+
+  mint() {
     if ((window as any).keplr) {
       const keplr: Keplr = (window as any).keplr;
       const CHAIN_ID = 'serenity-testnet-001';
@@ -77,7 +97,6 @@ export class RegisterComponent implements OnInit {
         .subscribe({
           next: res => {
             this.loading = false;
-            console.log('mint res', res);
             this.t.success('Register Success');
 
             of(1)

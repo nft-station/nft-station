@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
 
 import { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
-import { StdFee } from '@cosmjs/stargate';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContractService {
-  contractAddress = 'aura19vu8aa8l5fd44yzqus86snkz5fkn8akymdq42azrdetzxkrn9jzs28zmvg';
+  CONTRACT = 'aura19vu8aa8l5fd44yzqus86snkz5fkn8akymdq42azrdetzxkrn9jzs28zmvg';
 
   RPC = 'https://rpc.serenity.aura.network:443';
   LCD = 'https://lcd.serenity.aura.network:443';
@@ -35,10 +34,10 @@ export class ContractService {
 
   queryContractSmart(msg: Record<string, unknown>): Observable<unknown> {
     if (this.client) {
-      return from(this.client.queryContractSmart(this.contractAddress, msg));
+      return from(this.client.queryContractSmart(this.CONTRACT, msg));
     }
 
-    return from(this.connectClient().then(_ => this.client.queryContractSmart(this.contractAddress, msg)));
+    return from(this.connectClient().then(_ => this.client.queryContractSmart(this.CONTRACT, msg)));
   }
 
   get signer(): SigningCosmWasmClient | undefined {
@@ -51,7 +50,7 @@ export class ContractService {
 
   execute(userAddress: string, msg: Record<string, unknown>): Observable<any> {
     if (this.signer && msg) {
-      const fee: StdFee = {
+      const fee = {
         amount: [
           {
             denom: 'uaura',
@@ -60,7 +59,7 @@ export class ContractService {
         ],
         gas: '500000',
       };
-      return from(this.signer.execute(userAddress, this.contractAddress, msg, fee));
+      return from(this.signer.execute(userAddress, this.CONTRACT, msg, fee));
     }
 
     return of(null);

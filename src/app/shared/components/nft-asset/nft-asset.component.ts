@@ -45,7 +45,6 @@ export class NFTAssetComponent {
           },
           error: e => {
             this.invalidName = true;
-            console.log(e);
           },
           complete: () => {
             this.invalidName = false;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Keplr } from '@keplr-wallet/types';
@@ -23,11 +23,14 @@ export class EditComponent implements OnInit {
 
   loading = true;
 
+  isUpdate = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private contractService: ContractService,
-    private t: GToastrService
+    private t: GToastrService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -46,16 +49,18 @@ export class EditComponent implements OnInit {
   }
 
   initRegForm() {
-    this.regForm = new FormGroup({
-      image: new FormControl(),
-      image_data: new FormControl(),
-      external_url: new FormControl(),
-      description: new FormControl(),
-      twitter_id: new FormControl(),
-      discord_id: new FormControl(),
-      telegram_id: new FormControl(),
-      facebook_id: new FormControl(),
+    this.regForm = this.fb.group({
+      image: [{ value: null }],
+      image_data: [{ value: null }],
+      external_url: [{ value: null }],
+      description: [{ value: null }],
+      twitter_id: [{ value: null }],
+      discord_id: [{ value: null }],
+      telegram_id: [{ value: null }],
+      facebook_id: [{ value: null }],
     });
+
+    this.regForm.disable();
   }
 
   loadData() {
@@ -111,36 +116,58 @@ export class EditComponent implements OnInit {
       });
   }
 
+  enableForm() {
+    this.regForm.enable();
+
+    this.isUpdate = !this.isUpdate;
+  }
+
+  disableForm() {
+    this.regForm.disable();
+
+    this.isUpdate = !this.isUpdate;
+  }
+
   onSubmit() {
-    if ((window as any).keplr) {
-      const keplr: Keplr = (window as any).keplr;
-      const CHAIN_ID = 'serenity-testnet-001';
-      this.loading = true;
-      from(
-        keplr
-          .enable(CHAIN_ID)
-          .then(_ => keplr.getKey(CHAIN_ID))
-          .then(account => account?.bech32Address)
-      )
-        .pipe(
-          mergeMap(address => {
-            const mintMsg = this.makeUpdateMsg();
-            return this.contractService.execute(address, mintMsg);
-          })
+    if (!this.isUpdate) {
+      this.isUpdate = !this.isUpdate;
+
+      this.regForm.enable();
+    } else {
+      if ((window as any).keplr) {
+        const keplr: Keplr = (window as any).keplr;
+        const CHAIN_ID = 'serenity-testnet-001';
+        this.loading = true;
+        from(
+          keplr
+            .enable(CHAIN_ID)
+            .then(_ => keplr.getKey(CHAIN_ID))
+            .then(account => account?.bech32Address)
         )
-        .subscribe({
-          next: res => {
-            this.loading = false;
+          .pipe(
+            mergeMap(address => {
+              const mintMsg = this.makeUpdateMsg();
+              return this.contractService.execute(address, mintMsg);
+            })
+          )
+          .subscribe({
+            next: res => {
+              this.loading = false;
 
-            this.t.success('Update Success');
-          },
-          error: err => {
-            this.loading = false;
+              this.t.success('Update Success');
 
-            this.t.error(err?.message || '', 'Update Fail');
-            console.log('err', err);
-          },
-        });
+              this.disableForm();
+            },
+            error: err => {
+              this.loading = false;
+
+              this.t.error(err?.message || '', 'Update Fail');
+              console.log('err', err);
+
+              this.disableForm();
+            },
+          });
+      }
     }
   }
 

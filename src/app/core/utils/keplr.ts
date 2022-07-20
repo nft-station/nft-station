@@ -1,4 +1,4 @@
-import { Keplr } from '@keplr-wallet/types';
+import { ChainInfo, Keplr } from '@keplr-wallet/types';
 
 export async function getKeplr(): Promise<Keplr | undefined> {
   if ((window as any).keplr) {
@@ -9,7 +9,7 @@ export async function getKeplr(): Promise<Keplr | undefined> {
     return (window as any).keplr;
   }
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const documentStateChange = (event: Event) => {
       if (event.target && (event.target as Document).readyState === 'complete') {
         resolve((window as any).keplr);

@@ -18,40 +18,6 @@ export class CheckingAccountComponent {
 
   constructor(private contractService: ContractService) {}
 
-  allNFTs() {
-    this.contractService
-      .queryContractSmart({
-        all_tokens: {},
-      })
-      .subscribe({
-        next: e => {
-          console.log(e);
-        },
-        error: e => {
-          console.log(e);
-        },
-        complete: () => {},
-      });
-  }
-
-  tokenOf() {
-    this.contractService
-      .queryContractSmart({
-        all_operators: {
-          owner: 'aura103d2neftkpce223utyz9sc55a8x8ktl44ue9v2',
-        },
-      })
-      .subscribe({
-        next: e => {
-          console.log(e);
-        },
-        error: e => {
-          console.log(e);
-        },
-        complete: () => {},
-      });
-  }
-
   checkAccount() {
     this.loading = true;
 
@@ -63,7 +29,6 @@ export class CheckingAccountComponent {
       })
       .subscribe({
         next: e => {
-          console.log(e);
           // {owner: "aura103d2neftkpce223utyz9sc55a8x8ktl44ue9v2"}
           this.formDataValid = false;
           this.accountNameAvailable = (e as any).owner;

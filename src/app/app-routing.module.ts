@@ -6,13 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutAuthenticationComponent,
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
-  },
-  {
-    path: 'sign-up',
-    component: LayoutAuthenticationComponent,
+    // loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+
     loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule),
   },
+  // {
+  //   path: 'sign-up',
+  //   component: LayoutAuthenticationComponent,
+  //   loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule),
+  // },
   {
     path: 'transfer',
     component: LayoutAuthenticationComponent,

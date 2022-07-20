@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BTN_COLOR_GRADIENT } from '@app/core/constants/common.constant';
 import { WALLET_INFO, WalletService } from '@app/core/services/wallet.service';
 
@@ -12,7 +13,7 @@ export class HeaderAuthenticationComponent implements OnInit {
   userAddress = '';
   btnColor = BTN_COLOR_GRADIENT;
   currentAddress: any;
-  constructor(private walletService: WalletService) {}
+  constructor(private walletService: WalletService, private router: Router) {}
 
   ngOnInit(): void {
     this.currentAddress = JSON.parse(localStorage.getItem(WALLET_INFO)!);
@@ -28,5 +29,7 @@ export class HeaderAuthenticationComponent implements OnInit {
   disconnect(): void {
     this.walletService.disconnect();
     this.currentAddress = '';
+
+    this.router.navigate(['/']);
   }
 }

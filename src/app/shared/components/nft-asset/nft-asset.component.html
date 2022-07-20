@@ -51,13 +51,13 @@
                 (blur)="checkWallet()"
                 class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter Address" />
-              <div class="flex absolute inset-y-0 right-0 items-center pr-3 cursor-pointer">
+              <!-- <div class="flex absolute inset-y-0 right-0 items-center pr-3 cursor-pointer">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
                   <path
                     d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
                 </svg>
-              </div>
+              </div> -->
             </div>
             <p *ngIf="invalidName" class="text-rose-600 text-md">Wallet address does not exist</p>
             <p *ngIf="addressTransfer" class="text-green-600 text-md">Send to: {{ addressTransfer }}</p>

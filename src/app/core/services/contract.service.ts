@@ -16,6 +16,7 @@ export class ContractService {
   client: CosmWasmClient;
 
   private _signer: SigningCosmWasmClient;
+  balance = 0;
 
   constructor() {
     this.connectClient();
@@ -66,5 +67,11 @@ export class ContractService {
 
   private async getSigner() {
     return (window as any).getOfflineSigner(this.CHAIN_ID);
+  }
+
+  getBalance(userAddress: any, denom = '') {
+    return this.client.getBalance(userAddress, denom).then(data => {
+      this.balance = Number(data?.amount) || 0;
+    });
   }
 }

@@ -17,10 +17,11 @@ export class TransferTokenComponent implements OnInit {
   addressTransfer = '';
   invalidName = false;
   accountKey: Key | undefined;
-
+  numberConvert = Math.pow(10, 6);
   isLoading = false;
-
+  isValidForm = false;
   sendAmount = '';
+  isExceedAmount = false;
 
   constructor(
     private contractService: ContractService,
@@ -32,6 +33,7 @@ export class TransferTokenComponent implements OnInit {
     this.walletService.account$.subscribe({
       next: key => (this.accountKey = key),
     });
+    this.contractService.getBalance(this.accountKey?.bech32Address, 'uaura');
   }
 
   checkWallet() {
@@ -50,14 +52,15 @@ export class TransferTokenComponent implements OnInit {
         .subscribe({
           next: e => {
             this.invalidName = false;
-
             this.addressTransfer = (e as OwnerNFTDto).owner;
           },
           error: e => {
             this.invalidName = true;
+            this.isValidForm = false;
           },
           complete: () => {
             this.invalidName = false;
+            this.checkFromValid();
           },
         });
     }
@@ -65,6 +68,11 @@ export class TransferTokenComponent implements OnInit {
 
   transferToken() {
     if (!this.accountKey?.bech32Address) {
+      return;
+    }
+    if (Number(this.sendAmount) > this.contractService.balance / this.numberConvert) {
+      this.isExceedAmount = true;
+      this.isValidForm = false;
       return;
     }
     const { senderAddress, recipientAddress, amount, memo, fee } = this.makeTxData();
@@ -80,6 +88,7 @@ export class TransferTokenComponent implements OnInit {
           this.addressTransfer = '';
 
           this.isLoading = false;
+          this.contractService.getBalance(this.accountKey?.bech32Address, 'uaura');
         })
         .catch(_ => {
           this.toast.error('Transfer Fail');
@@ -120,5 +129,32 @@ export class TransferTokenComponent implements OnInit {
       fee,
       memo,
     };
+  }
+
+  checkAmountChange(s: any) {
+    this.isExceedAmount = false;
+    this.checkFromValid();
+  }
+
+  getMaxToken(): void {
+    this.isExceedAmount = false;
+    let amountCheck = (
+      (Number(this.contractService.balance) -
+        Number(500000) * Number(this.walletService?.chainInfo?.gasPriceStep?.high)) /
+      this.numberConvert
+    ).toFixed(3);
+    if (Number(amountCheck) < 0) {
+      this.isExceedAmount = true;
+    }
+    this.sendAmount = amountCheck;
+    this.checkFromValid();
+  }
+
+  checkFromValid() {
+    if (this.invalidName || this.isExceedAmount || !(Number(this.sendAmount) > 0 && this.recipientAddress?.length > 0)) {
+      this.isValidForm = false;
+    } else {
+      this.isValidForm = true;
+    }
   }
 }

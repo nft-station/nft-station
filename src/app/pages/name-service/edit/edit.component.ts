@@ -42,6 +42,7 @@ export class EditComponent implements OnInit {
     });
 
     this.accountName = this.route.snapshot.params['accountName'];
+
     if (!this.accountName) {
       this.router.navigate(['']);
     }
@@ -79,7 +80,7 @@ export class EditComponent implements OnInit {
       })
       .pipe(
         mergeMap(address => {
-          if ((address as any).owner === 'aura1xahhax60fakwfng0sdd6wcxd0eeu00r5w3s49h') {
+          if ((address as any).owner === this.accountKey?.bech32Address) {
             return this.contractService.queryContractSmart({
               nft_info: {
                 token_id: this.accountName,
@@ -117,7 +118,6 @@ export class EditComponent implements OnInit {
         },
         error: e => {
           this.loading = false;
-
           this.router.navigate(['']);
         },
       });

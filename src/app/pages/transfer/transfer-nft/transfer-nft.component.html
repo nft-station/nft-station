@@ -1,5 +1,4 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-4 xl:p-0 gap-4 xl:gap-6">
-  <app-loading *ngIf="isLoading"></app-loading>
   <ng-container>
     <ng-container *ngIf="cardData.length > 0; else noData">
       <ng-container *ngFor="let item of cardData">
@@ -8,4 +7,5 @@
     </ng-container>
     <ng-template #noData> You do not have any NFTs </ng-template>
   </ng-container>
+  <app-loading *ngIf="isLoading"></app-loading>
 </div>

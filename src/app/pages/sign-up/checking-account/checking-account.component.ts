@@ -30,4 +30,11 @@ export class CheckingAccountComponent {
       this.accountNameAvailable = true;
     }, 500);
   }
+
+  checkAccountTyping() {
+    this.account.length > 0 ? this.typing = true : this.typing = false;
+    setTimeout(() => {
+      this.typing = false;
+    }, 800);
+  }
 }
